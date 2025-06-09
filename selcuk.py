@@ -42,12 +42,9 @@ def build_m3u8_links(base_stream_url, channel_ids):
     return m3u8_links
 
 def write_m3u_file(m3u8_links, filename="5.m3u", referer=""):
-    updated_ids = [cid for cid, _ in m3u8_links]
-
-    # Eğer dosya yoksa oluştur
     if not os.path.exists(filename):
-        with open(filename, "w", encoding="utf-8") as f:
-            f.write("#EXTM3U\n")
+        print("⛔ Dosya bulunamadı. Yeni dosya oluşturulamaz çünkü eski içerik korunmalı.")
+        return
 
     with open(filename, "r", encoding="utf-8") as f:
         lines = f.read().splitlines()
@@ -58,29 +55,30 @@ def write_m3u_file(m3u8_links, filename="5.m3u", referer=""):
         line = lines[i]
         new_lines.append(line)
 
-        if line.startswith("#EXTINF:-1"):
-            name = line.split(",")[-1].strip()
-            matched = next(((cid, url) for cid, url in m3u8_links if cid == name), None)
+        if line.startswith("#EXTINF") and 'tvg-id="' in line:
+            tvg_id_match = re.search(r'tvg-id="([^"]+)"', line)
+            if tvg_id_match:
+                kanal_id = tvg_id_match.group(1)
+                matched = next(((cid, url) for cid, url in m3u8_links if cid == kanal_id), None)
 
-            if matched:
-                # Mevcut yayının referer + url kısmını güncelle
-                i += 1  # EXTVLCOPT
-                if i < len(lines) and lines[i].startswith("#EXTVLCOPT:http-referrer"):
+                if matched:
+                    # Mevcut yayının referer ve url kısmını güncelle
                     i += 1
-                if i < len(lines) and lines[i].startswith("http"):
-                    i += 1
+                    if i < len(lines) and lines[i].startswith("#EXTVLCOPT:http-referrer"):
+                        i += 1
+                    if i < len(lines) and lines[i].startswith("http"):
+                        i += 1
 
-                new_lines.append(f"#EXTVLCOPT:http-referrer= {referer}")
-                new_lines.append(matched[1])
-                continue  # Bu yayını güncelledik, sonrakine geç
-
+                    new_lines.append(f"#EXTVLCOPT:http-referrer= {referer}")
+                    new_lines.append(matched[1])
+                    continue  # Güncellendi, diğer satıra geç
         i += 1
 
     with open(filename, "w", encoding="utf-8") as f:
         f.write("\n".join(new_lines))
     print(f"✅ Güncelleme tamamlandı: {filename}")
 
-# Kanal ID'leri
+# tvg-id ile eşleşecek kanal ID'leri
 channel_ids = [
     "selcukbeinsports1",
     "selcukbeinsports2",
