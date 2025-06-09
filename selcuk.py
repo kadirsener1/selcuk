@@ -1,5 +1,6 @@
 import requests
 import re
+import os
 
 def find_working_selcuksportshd(start=1825, end=1850):
     print("🧭 Selcuksportshd domainleri taranıyor...")
@@ -41,14 +42,43 @@ def build_m3u8_links(base_stream_url, channel_ids):
     return m3u8_links
 
 def write_m3u_file(m3u8_links, filename="5.m3u", referer=""):
+    updated_ids = [cid for cid, _ in m3u8_links]
+
+    # Eğer dosya yoksa oluştur
+    if not os.path.exists(filename):
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write("#EXTM3U\n")
+
+    with open(filename, "r", encoding="utf-8") as f:
+        lines = f.read().splitlines()
+
+    new_lines = []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        new_lines.append(line)
+
+        if line.startswith("#EXTINF:-1"):
+            name = line.split(",")[-1].strip()
+            matched = next(((cid, url) for cid, url in m3u8_links if cid == name), None)
+
+            if matched:
+                # Mevcut yayının referer + url kısmını güncelle
+                i += 1  # EXTVLCOPT
+                if i < len(lines) and lines[i].startswith("#EXTVLCOPT:http-referrer"):
+                    i += 1
+                if i < len(lines) and lines[i].startswith("http"):
+                    i += 1
+
+                new_lines.append(f"#EXTVLCOPT:http-referrer= {referer}")
+                new_lines.append(matched[1])
+                continue  # Bu yayını güncelledik, sonrakine geç
+
+        i += 1
+
     with open(filename, "w", encoding="utf-8") as f:
-        f.write("#EXTM3U\n")
-        for name, url in m3u8_links:
-            
-            f.write(f"#EXTINF:-1,{name}\n")
-            f.write(f"#EXTVLCOPT:http-referrer= {referer}\n")
-            f.write(f"{url}\n")
-    print(f"\n💾 M3U dosyası oluşturuldu: {filename}")
+        f.write("\n".join(new_lines))
+    print(f"✅ Güncelleme tamamlandı: {filename}")
 
 # Kanal ID'leri
 channel_ids = [
