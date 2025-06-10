@@ -33,12 +33,29 @@ def extract_base_stream_url(html):
         return match.group(1)
     return None
 
-def build_m3u8_links(base_stream_url, channel_ids):
+def build_m3u8_links(stream_domain, referer, channel_ids):
     m3u8_links = []
+    headers = {
+        "User-Agent": "Mozilla/5.0",
+        "Referer": referer
+    }
+
     for cid in channel_ids:
-        full_url = f"{base_stream_url}{cid}/playlist.m3u8"
-        print(f"✅ M3U8 link oluşturuldu: {full_url}")
-        m3u8_links.append((cid, full_url))
+        try:
+            url = f"{stream_domain}/index.php?id={cid}"
+            response = requests.get(url, headers=headers, timeout=5)
+            if response.status_code == 200:
+                base_url = extract_base_stream_url(response.text)
+                if base_url:
+                    full_url = f"{base_url}{cid}/playlist.m3u8"
+                    print(f"✅ {cid} için M3U8 bulundu: {full_url}")
+                    m3u8_links.append((cid, full_url))
+                else:
+                    print(f"❌ baseStreamUrl alınamadı: {cid}")
+            else:
+                print(f"❌ Yanıt alınamadı: {cid}")
+        except Exception as e:
+            print(f"⚠️ Hata ({cid}): {e}")
     return m3u8_links
 
 def write_m3u_file(m3u8_links, filename="cafe.m3u", referer=""):
@@ -62,7 +79,6 @@ def write_m3u_file(m3u8_links, filename="cafe.m3u", referer=""):
                 matched = next(((cid, url) for cid, url in m3u8_links if cid == kanal_id), None)
 
                 if matched:
-                    # Mevcut yayının referer ve url kısmını güncelle
                     i += 1
                     if i < len(lines) and lines[i].startswith("#EXTVLCOPT:http-referrer"):
                         i += 1
@@ -71,7 +87,7 @@ def write_m3u_file(m3u8_links, filename="cafe.m3u", referer=""):
 
                     new_lines.append(f"#EXTVLCOPT:http-referrer= {referer}")
                     new_lines.append(matched[1])
-                    continue  # Güncellendi, diğer satıra geç
+                    continue
         i += 1
 
     with open(filename, "w", encoding="utf-8") as f:
@@ -80,6 +96,7 @@ def write_m3u_file(m3u8_links, filename="cafe.m3u", referer=""):
 
 # tvg-id ile eşleşecek kanal ID'leri
 channel_ids = [
+    "sbeinsports-1",
     "sbeinsports-2",
     "sbeinsports-3",
     "sbeinsports-4",
@@ -110,18 +127,11 @@ if html:
     stream_domain = find_dynamic_player_domain(html)
     if stream_domain:
         print(f"\n🔗 Yayın domaini bulundu: {stream_domain}")
-        try:
-            player_page = requests.get(f"{stream_domain}/index.php?id={channel_ids[0]}",
-                                       headers={"User-Agent": "Mozilla/5.0", "Referer": referer_url})
-            base_stream_url = extract_base_stream_url(player_page.text)
-            if base_stream_url:
-                print(f"📡 Base stream URL bulundu: {base_stream_url}")
-                m3u8_list = build_m3u8_links(base_stream_url, channel_ids)
-                write_m3u_file(m3u8_list, referer=referer_url)
-            else:
-                print("❌ baseStreamUrl bulunamadı.")
-        except Exception as e:
-            print(f"⚠️ Hata oluştu: {e}")
+        m3u8_list = build_m3u8_links(stream_domain, referer_url, channel_ids)
+        if m3u8_list:
+            write_m3u_file(m3u8_list, referer=referer_url)
+        else:
+            print("❌ Hiçbir yayın linki oluşturulamadı.")
     else:
         print("❌ Yayın domaini bulunamadı.")
 else:
