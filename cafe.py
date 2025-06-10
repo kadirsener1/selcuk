@@ -2,12 +2,12 @@ import requests
 import re
 import os
 
-def find_working_selcuksportshd(start=1825, end=1850):
-    print("🧭 Selcuksportshd domainleri taranıyor...")
+def find_working_sporcafe(start=5, end=15):
+    print("🧭 sporcafe domainleri taranıyor...")
     headers = {"User-Agent": "Mozilla/5.0"}
 
     for i in range(start, end + 1):
-        url = f"https://www.selcuksportshd{i}.xyz/"
+        url = f"https://www.sporcafe{i}.xyz/"
         print(f"🔍 Taranıyor: {url}")
         try:
             response = requests.get(url, headers=headers, timeout=5)
@@ -41,7 +41,7 @@ def build_m3u8_links(base_stream_url, channel_ids):
         m3u8_links.append((cid, full_url))
     return m3u8_links
 
-def write_m3u_file(m3u8_links, filename="5.m3u", referer=""):
+def write_m3u_file(m3u8_links, filename="cafe.m3u", referer=""):
     if not os.path.exists(filename):
         print("⛔ Dosya bulunamadı. Yeni dosya oluşturulamaz çünkü eski içerik korunmalı.")
         return
@@ -80,11 +80,11 @@ def write_m3u_file(m3u8_links, filename="5.m3u", referer=""):
 
 # tvg-id ile eşleşecek kanal ID'leri
 channel_ids = [
-    "selcukbeinsports1",
-    "selcukbeinsports2",
-    "selcukbeinsports3",
-    "selcukbeinsports4",
-    "selcukbeinsports5",
+    "sbeinsports-1",
+    "sbeinsports-2",
+    "sbeinsports-3",
+    "sbeinsports-4",
+    "sbeinsports-5",
     "selcukbeinsportsmax1",
     "selcukbeinsportsmax2",
     "selcukssport",
