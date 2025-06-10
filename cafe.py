@@ -28,7 +28,7 @@ def find_dynamic_player_domain(page_html):
     return None
 
 def extract_base_stream_url(html):
-    match = re.search(r'this\.baseStreamUrl\s*=\s*[\'"]([^\'"]+)', html)
+    match = re.search(r'this\.adsBaseUrl\s*=\s*[\'"]([^\'"]+)', html)
     if match:
         return match.group(1)
     return None
