@@ -10,7 +10,7 @@ https://tv-trtturk.medya.trt.com.tr/master.m3u8
 
 #EXTINF:-1,tvg-name="TRT Türk" tvg-country="TR" tvg-id="selcukbeinsports1" tvg-logo="" group-title="Ulusal",deneme
 #EXTVLCOPT:http-referrer= https://www.selcuksportshd1825.xyz/
-https://alpha.cf-worker-d11fbb79de0c7.workers.dev/live/selcukbeinsports1/playlist.m3u8
+https://alpha.8bb586aa66d8f388.click/live/selcukbeinsports1/playlist.m3u8
 #EXTINF:-1,selcukbeinsports2
 #EXTVLCOPT:http-referrer= https://www.selcuksportshd1825.xyz/
 https://alpha.cf-worker-7df90b083f9d09.workers.dev/live/selcukbeinsports2/playlist.m3u8
@@ -73,4 +73,4 @@ https://alpha.cf-worker-7df90b083f9d09.workers.dev/live/selcuksf1/playlist.m3u8
 https://alpha.cf-worker-7df90b083f9d09.workers.dev/live/selcuktabiispor/playlist.m3u8
 #EXTINF:-1,tvg-name="TRT Türk" tvg-country="TR" tvg-id="ssportplus1" tvg-logo="" group-title="Ulusal",deneme
 #EXTVLCOPT:http-referrer= https://www.selcuksportshd1825.xyz/
-https://alpha.cf-worker-d11fbb79de0c7.workers.dev/live/ssportplus1/playlist.m3u8
+https://alpha.8bb586aa66d8f388.click/live/ssportplus1/playlist.m3u8
