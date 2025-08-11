@@ -43,7 +43,7 @@ https://alpha.cf-worker-fc7f64bb54264.workers.dev/live/sbeinsportsmax-1/playlist
 
 #EXTINF:-1,tvg-name="TRT Türk" tvg-country="TR" tvg-id="sbeinsportsmax-2" tvg-logo="" group-title="Ulusal",deneme
 #EXTVLCOPT:http-referrer= https://www.sporcafe6.xyz/
-https://alpha.cf-worker-425f83afed3b98.workers.dev/live/sbeinsportsmax-2/playlist.m3u8
+https://alpha.cf-worker-fc7f64bb54264.workers.dev/live/sbeinsportsmax-2/playlist.m3u8
 
 #EXTINF:-1,tvg-name="TRT Türk" tvg-country="TR" tvg-id="sssport" tvg-logo="" group-title="Ulusal",deneme
 #EXTVLCOPT:http-referrer= https://www.sporcafe6.xyz/
@@ -59,11 +59,11 @@ https://alpha.cf-worker-fc7f64bb54264.workers.dev/live/ssmartspor/playlist.m3u8
 
 #EXTINF:-1,tvg-name="TRT Türk" tvg-country="TR" tvg-id="ssmartspor2" tvg-logo="" group-title="Ulusal",deneme
 #EXTVLCOPT:http-referrer= https://www.sporcafe6.xyz/
-https://alpha.cf-worker-425f83afed3b98.workers.dev/live/ssmartspor2/playlist.m3u8
+https://alpha.cf-worker-fc7f64bb54264.workers.dev/live/ssmartspor2/playlist.m3u8
 
 #EXTINF:-1,tvg-name="TRT Türk" tvg-country="TR" tvg-id="stivibuspor-1" tvg-logo="" group-title="Ulusal",deneme
 #EXTVLCOPT:http-referrer= https://www.sporcafe6.xyz/
-https://alpha.cf-worker-425f83afed3b98.workers.dev/live/stivibuspor-1/playlist.m3u8
+https://alpha.cf-worker-fc7f64bb54264.workers.dev/live/stivibuspor-1/playlist.m3u8
 
 #EXTINF:-1,tvg-name="TRT Türk" tvg-country="TR" tvg-id="stivibuspor-2" tvg-logo="" group-title="Ulusal",deneme
 #EXTVLCOPT:http-referrer= https://www.sporcafe6.xyz/
