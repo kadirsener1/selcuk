@@ -41,7 +41,7 @@ def build_m3u8_links(base_stream_url, channel_ids):
         m3u8_links.append((cid, full_url))
     return m3u8_links
 
-def write_m3u_file(m3u8_links, filename="5.m3u", referer=""):
+def write_m3u_file(m3u8_links, filename="5.m3u"):
     if not os.path.exists(filename):
         print("⛔ Dosya bulunamadı. Yeni dosya oluşturulamaz çünkü eski içerik korunmalı.")
         return
@@ -62,16 +62,14 @@ def write_m3u_file(m3u8_links, filename="5.m3u", referer=""):
                 matched = next(((cid, url) for cid, url in m3u8_links if cid == kanal_id), None)
 
                 if matched:
-                    # Mevcut yayının referer ve url kısmını güncelle
                     i += 1
                     if i < len(lines) and lines[i].startswith("#EXTVLCOPT:http-referrer"):
                         i += 1
                     if i < len(lines) and lines[i].startswith("http"):
                         i += 1
 
-                    new_lines.append(f"#EXTVLCOPT:http-referrer= {referer}")
                     new_lines.append(matched[1])
-                    continue  # Güncellendi, diğer satıra geç
+                    continue
         i += 1
 
     with open(filename, "w", encoding="utf-8") as f:
@@ -118,7 +116,7 @@ if html:
             if base_stream_url:
                 print(f"📡 Base stream URL bulundu: {base_stream_url}")
                 m3u8_list = build_m3u8_links(base_stream_url, channel_ids)
-                write_m3u_file(m3u8_list, referer=referer_url)
+                write_m3u_file(m3u8_list)
             else:
                 print("❌ baseStreamUrl bulunamadı.")
         except Exception as e:
