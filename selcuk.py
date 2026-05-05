@@ -36,7 +36,7 @@ def extract_base_stream_url(html):
 def build_m3u8_links(base_stream_url, channel_ids):
     m3u8_links = []
     for cid in channel_ids:
-        full_url = f"{base_stream_url}{cid}/playlist.m3u8"
+        full_url = f"{https://ronaldo.magnitude.workers.dev/?url=}{base_stream_url}{cid}/playlist.m3u8"
         print(f"✅ M3U8 link oluşturuldu: {full_url}")
         m3u8_links.append((cid, full_url))
     return m3u8_links
