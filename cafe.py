@@ -114,10 +114,7 @@ channel_ids = [
     "sbeinsportshaber",
     "saspor",
     "seurosport1",
-    "seurosport2",
-    "sf1",
-    "stabiispor",
-    "sssportplus1"
+    "seurosport2"
 ]
 
 # Ana işlem
