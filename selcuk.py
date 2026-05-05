@@ -58,7 +58,7 @@ def build_m3u8_links(stream_domain, referer, channel_ids):
             print(f"⚠️ Hata ({cid}): {e}")
     return m3u8_links
 
-def write_m3u_file(m3u8_links, filename="1.m3u", referer=""):
+def write_m3u_file(m3u8_links, filename="5.m3u", referer=""):
     if not os.path.exists(filename):
         print("⛔ Dosya bulunamadı. Yeni dosya oluşturulamaz çünkü eski içerik korunmalı.")
         return
@@ -96,28 +96,28 @@ def write_m3u_file(m3u8_links, filename="1.m3u", referer=""):
 
 # tvg-id ile eşleşecek kanal ID'leri
 channel_ids = [
-    "sbeinsports-1",
-    "sbeinsports-2",
-    "sbeinsports-3",
-    "sbeinsports-4",
-    "sbeinsports-5",
-    "sbeinsportsmax-1",
-    "sbeinsportsmax-2",
-    "sssport",
-    "sssport2",
-    "ssmartspor",
-    "ssmartspor2",
-    "stivibuspor-1",
-    "stivibuspor-2",
-    "stivibuspor-3",
-    "stivibuspor-4",
-    "sbeinsportshaber",
-    "saspor",
-    "seurosport1",
-    "seurosport2",
-    "sf1",
-    "stabiispor",
-    "sssportplus1"
+"selcukbeinsports1",
+"selcukbeinsports2",
+"selcukbeinsports3",
+"selcukbeinsports4",
+"selcukbeinsports5",
+"selcukbeinsportsmax1",
+"selcukbeinsportsmax2",
+"selcukssport",
+"selcukssport2",
+"selcuksmartspor",
+"selcuksmartspor2",
+"selcuktivibuspor1",
+"selcuktivibuspor2",
+"selcuktivibuspor3",
+"selcuktivibuspor4",
+"selcukbeinsportshaber",
+"selcukaspor",
+"selcukeurosport1",
+"selcukeurosport2",
+"selcuksf1",
+"selcuktabiispor",
+"ssportplus1"
 ]
 
 # Ana işlem
